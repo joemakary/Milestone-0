@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     c.setVisibility(View.VISIBLE);
                     d.setVisibility(View.VISIBLE);
                     try {
+
                         connect();
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -60,16 +61,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void connect() throws Exception {
 
-
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        s = new Socket("172.20.10.7", 12340);
         Toast.makeText(getApplicationContext(), "CONNECTED", Toast.LENGTH_SHORT).show();
 
 
     }
 
     public void send() throws Exception{
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-        Socket s = new Socket("192.168.1.14", 12340);
+
+
         DataInputStream din = new DataInputStream(s.getInputStream());
         DataOutputStream dout = new DataOutputStream(s.getOutputStream());
         dout.writeUTF(str);
